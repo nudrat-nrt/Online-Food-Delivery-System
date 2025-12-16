@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodExpress | Delicious Food Delivered</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-utensils"></i>
+                <span>FoodExpress</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="active"><i class="fas fa-home"></i> Home</a>
+                <a href="menu.html"><i class="fas fa-pizza-slice"></i> Menu</a>
+                <a href="cart.html" class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count" class="cart-count">0</span>
+                </a>
+                <a href="login.html" class="btn-login"><i class="fas fa-user"></i> Login</a>
+            </div>
+            <button class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Delicious Food <span class="highlight">Delivered</span> to Your Doorstep</h1>
+            <p class="hero-subtitle">Order from the best restaurants in town. Fast, fresh, and fabulous food!</p>
+            <div class="hero-buttons">
+                <a href="menu.html" class="btn-primary">
+                    <i class="fas fa-utensils"></i> Order Now
+                </a>
+                <a href="#how-it-works" class="btn-secondary">
+                    <i class="fas fa-play-circle"></i> How It Works
+                </a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="images/hero-bg.jpg" alt="Delicious Food">
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="section how-it-works" id="how-it-works">
+        <div class="container">
+            <h2 class="section-title">How It <span class="highlight">Works</span></h2>
+            <p class="section-subtitle">Get your favorite food in 4 simple steps</p>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>1. Browse Menu</h3>
+                    <p>Explore our delicious menu with various categories</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <h3>2. Add to Cart</h3>
+                    <p>Select your favorite items and add to cart</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <h3>3. Checkout</h3>
+                    <p>Enter your details and complete payment</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-icon">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <h3>4. Enjoy Food</h3>
+                    <p>Get your food delivered hot and fresh</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Categories -->
+    <section class="section categories">
+        <div class="container">
+            <h2 class="section-title">Popular <span class="highlight">Categories</span></h2>
+            <p class="section-subtitle">Discover our delicious food categories</p>
+            <div class="categories-grid">
+                <a href="menu.html?category=pizza" class="category-card">
+                    <div class="category-image">
+                        <img src="images/food/pizza.jpg" alt="Pizza">
+                    </div>
+                    <div class="category-content">
+                        <h3>Pizza</h3>
+                        <p>From classic Margherita to loaded Supreme</p>
+                    </div>
+                </a>
+                <a href="menu.html?category=burger" class="category-card">
+                    <div class="category-image">
+                        <img src="images/food/burger.jpg" alt="Burgers">
+                    </div>
+                    <div class="category-content">
+                        <h3>Burgers</h3>
+                        <p>Juicy burgers with fresh ingredients</p>
+                    </div>
+                </a>
+                <a href="menu.html?category=pasta" class="category-card">
+                    <div class="category-image">
+                        <img src="images/food/pasta.jpg" alt="Pasta">
+                    </div>
+                    <div class="category-content">
+                        <h3>Pasta</h3>
+                        <p>Creamy and delicious pasta dishes</p>
+                    </div>
+                </a>
+                <a href="menu.html?category=sushi" class="category-card">
+                    <div class="category-image">
+                        <img src="images/food/sushi.jpg" alt="Sushi">
+                    </div>
+                    <div class="category-content">
+                        <h3>Sushi</h3>
+                        <p>Fresh and authentic Japanese sushi</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="logo">
+                        <i class="fas fa-utensils"></i>
+                        <span>FoodExpress</span>
+                    </div>
+                    <p>Delivering happiness one meal at a time. Fresh, fast, and fabulous food delivery service.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="menu.html">Menu</a></li>
+                        <li><a href="cart.html">Cart</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Categories</h3>
+                    <ul>
+                        <li><a href="menu.html?category=pizza">Pizza</a></li>
+                        <li><a href="menu.html?category=burger">Burgers</a></li>
+                        <li><a href="menu.html?category=pasta">Pasta</a></li>
+                        <li><a href="menu.html?category=sushi">Sushi</a></li>
+                        <li><a href="menu.html?category=salad">Salads</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Food Street, City</li>
+                        <li><i class="fas fa-phone"></i> +1 234 567 890</li>
+                        <li><i class="fas fa-envelope"></i> info@foodexpress.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 FoodExpress. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

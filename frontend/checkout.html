@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | FoodExpress</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-utensils"></i>
+                <span>FoodExpress</span>
+            </a>
+            <div class="checkout-progress">
+                <div class="progress-step active">
+                    <span>1</span>
+                    <span>Cart</span>
+                </div>
+                <div class="progress-step active">
+                    <span>2</span>
+                    <span>Checkout</span>
+                </div>
+                <div class="progress-step">
+                    <span>3</span>
+                    <span>Confirmation</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Checkout Section -->
+    <section class="checkout-section">
+        <div class="container">
+            <div class="checkout-content">
+                <!-- Delivery Details -->
+                <div class="checkout-form">
+                    <h2><i class="fas fa-truck"></i> Delivery Details</h2>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fullName">Full Name *</label>
+                            <input type="text" id="fullName" placeholder="John Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" placeholder="+1 234 567 8900" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" placeholder="john@example.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="address">Delivery Address *</label>
+                        <textarea id="address" rows="3" placeholder="Street address, apartment, floor, etc." required></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city">City *</label>
+                            <input type="text" id="city" placeholder="New York" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="zipCode">ZIP Code *</label>
+                            <input type="text" id="zipCode" placeholder="10001" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="instructions">Delivery Instructions</label>
+                        <textarea id="instructions" rows="2" placeholder="Any special instructions for delivery"></textarea>
+                    </div>
+                    
+                    <h2><i class="fas fa-credit-card"></i> Payment Method</h2>
+                    
+                    <div class="payment-methods-select">
+                        <label class="payment-method active">
+                            <input type="radio" name="payment" value="card" checked>
+                            <div class="payment-content">
+                                <i class="fas fa-credit-card"></i>
+                                <span>Credit/Debit Card</span>
+                            </div>
+                        </label>
+                        
+                        <label class="payment-method">
+                            <input type="radio" name="payment" value="cash">
+                            <div class="payment-content">
+                                <i class="fas fa-money-bill-wave"></i>
+                                <span>Cash on Delivery</span>
+                            </div>
+                        </label>
+                        
+                        <label class="payment-method">
+                            <input type="radio" name="payment" value="paypal">
+                            <div class="payment-content">
+                                <i class="fab fa-paypal"></i>
+                                <span>PayPal</span>
+                            </div>
+                        </label>
+                    </div>
+                    
+                    <!-- Card Details (shown when card is selected) -->
+                    <div class="card-details" id="card-details">
+                        <div class="form-group">
+                            <label for="cardNumber">Card Number</label>
+                            <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="expiry">Expiry Date</label>
+                                <input type="text" id="expiry" placeholder="MM/YY">
+                            </div>
+                            <div class="form-group">
+                                <label for="cvv">CVV</label>
+                                <input type="text" id="cvv" placeholder="123">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="cardName">Name on Card</label>
+                            <input type="text" id="cardName" placeholder="John Doe">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Order Summary -->
+                <div class="checkout-summary">
+                    <h2><i class="fas fa-receipt"></i> Order Summary</h2>
+                    
+                    <div class="order-items" id="order-items">
+                        <!-- Order items will be loaded here -->
+                    </div>
+                    
+                    <div class="order-totals">
+                        <div class="total-row">
+                            <span>Subtotal</span>
+                            <span id="subtotal">$0.00</span>
+                        </div>
+                        <div class="total-row">
+                            <span>Delivery Fee</span>
+                            <span>$2.99</span>
+                        </div>
+                        <div class="total-row">
+                            <span>Tax (10%)</span>
+                            <span id="tax">$0.00</span>
+                        </div>
+                        <div class="total-row grand-total">
+                            <span>Total</span>
+                            <span id="total">$0.00</span>
+                        </div>
+                    </div>
+                    
+                    <div class="delivery-time">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4>Estimated Delivery Time</h4>
+                            <p>25-30 minutes</p>
+                        </div>
+                    </div>
+                    
+                    <div class="terms-agreement">
+                        <label class="checkbox">
+                            <input type="checkbox" id="terms" required>
+                            <span>I agree to the <a href="#terms">Terms & Conditions</a> and confirm this order</span>
+                        </label>
+                    </div>
+                    
+                    <button class="btn-primary btn-place-order" id="place-order-btn">
+                        <i class="fas fa-lock"></i> Place Order
+                    </button>
+                    
+                    <div class="security-note">
+                        <i class="fas fa-shield-alt"></i>
+                        <p>Your payment is secured with 256-bit SSL encryption</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <!-- Same as index.html footer -->
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadOrderSummary();
+            
+            // Toggle card details based on payment method
+            document.querySelectorAll('input[name="payment"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    const cardDetails = document.getElementById('card-details');
+                    cardDetails.style.display = this.value === 'card' ? 'block' : 'none';
+                });
+            });
+            
+            // Place order button
+            document.getElementById('place-order-btn').addEventListener('click', placeOrder);
+        });
+
+        function loadOrderSummary() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const orderItems = document.getElementById('order-items');
+            const subtotalElement = document.getElementById('subtotal');
+            const taxElement = document.getElementById('tax');
+            const totalElement = document.getElementById('total');
+            
+            if (cart.length === 0) {
+                orderItems.innerHTML = '<p>No items in cart</p>';
+                return;
+            }
+            
+            let subtotal = 0;
+            const deliveryFee = 2.99;
+            const taxRate = 0.10;
+            
+            orderItems.innerHTML = cart.map(item => {
+                const itemTotal = item.price * item.quantity;
+                subtotal += itemTotal;
+                
+                return `
+                    <div class="order-item">
+                        <div class="item-info">
+                            <h4>${item.name}</h4>
+                            <p>${item.quantity} × $${item.price.toFixed(2)}</p>
+                        </div>
+                        <span>$${itemTotal.toFixed(2)}</span>
+                    </div>
+                `;
+            }).join('');
+            
+            const tax = subtotal * taxRate;
+            const total = subtotal + deliveryFee + tax;
+            
+            subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
+            taxElement.textContent = `$${tax.toFixed(2)}`;
+            totalElement.textContent = `$${total.toFixed(2)}`;
+        }
+
+        function placeOrder() {
+            // Validate form
+            const requiredFields = ['fullName', 'phone', 'email', 'address', 'city', 'zipCode'];
+            let isValid = true;
+            
+            requiredFields.forEach(field => {
+                const element = document.getElementById(field);
+                if (!element.value.trim()) {
+                    element.classList.add('error');
+                    isValid = false;
+                } else {
+                    element.classList.remove('error');
+                }
+            });
+            
+            if (!document.getElementById('terms').checked) {
+                alert('Please agree to the terms and conditions');
+                return;
+            }
+            
+            if (!isValid) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            // Get order data
+            const orderData = {
+                customer: {
+                    name: document.getElementById('fullName').value,
+                    phone: document.getElementById('phone').value,
+                    email: document.getElementById('email').value,
+                    address: document.getElementById('address').value,
+                    city: document.getElementById('city').value,
+                    zipCode: document.getElementById('zipCode').value,
+                    instructions: document.getElementById('instructions').value
+                },
+                payment: document.querySelector('input[name="payment"]:checked').value,
+                cart: JSON.parse(localStorage.getItem('cart')) || [],
+                total: document.getElementById('total').textContent
+            };
+            
+            // Show loading
+            const btn = document.getElementById('place-order-btn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            btn.disabled = true;
+            
+            // Simulate API call to backend
+            setTimeout(() => {
+                // Generate order ID
+                const orderId = 'ORD-' + Date.now().toString().slice(-8);
+                
+                // Store order in localStorage
+                localStorage.setItem('lastOrder', JSON.stringify({
+                    id: orderId,
+                    ...orderData,
+                    date: new Date().toLocaleString(),
+                    status: 'Processing'
+                }));
+                
+                // Clear cart
+                localStorage.removeItem('cart');
+                
+                // Redirect to confirmation
+                window.location.href = `order-confirmation.html?order=${orderId}`;
+                
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

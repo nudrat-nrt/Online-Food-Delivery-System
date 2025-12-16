@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu | FoodExpress</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-utensils"></i>
+                <span>FoodExpress</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                <a href="menu.html" class="active"><i class="fas fa-pizza-slice"></i> Menu</a>
+                <a href="cart.html" class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count" class="cart-count">0</span>
+                </a>
+                <div class="user-dropdown">
+                    <button class="user-btn">
+                        <i class="fas fa-user-circle"></i>
+                        <span id="username-display">Guest</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#profile"><i class="fas fa-user"></i> Profile</a>
+                        <a href="#orders"><i class="fas fa-shopping-bag"></i> Orders</a>
+                        <a href="#settings"><i class="fas fa-cog"></i> Settings</a>
+                        <hr>
+                        <a href="login.html" class="logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+            <button class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Menu Hero -->
+    <section class="menu-hero">
+        <div class="container">
+            <h1>Our Delicious Menu</h1>
+            <p>Explore our wide range of culinary delights</p>
+            <div class="search-box">
+                <input type="text" placeholder="Search for dishes..." id="search-input">
+                <button class="search-btn">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Filters -->
+    <section class="menu-filters">
+        <div class="container">
+            <div class="filter-tabs">
+                <button class="filter-btn active" data-category="all">
+                    <i class="fas fa-th"></i> All Items
+                </button>
+                <button class="filter-btn" data-category="pizza">
+                    <i class="fas fa-pizza-slice"></i> Pizza
+                </button>
+                <button class="filter-btn" data-category="burger">
+                    <i class="fas fa-hamburger"></i> Burgers
+                </button>
+                <button class="filter-btn" data-category="pasta">
+                    <i class="fas fa-utensils"></i> Pasta
+                </button>
+                <button class="filter-btn" data-category="sushi">
+                    <i class="fas fa-fish"></i> Sushi
+                </button>
+                <button class="filter-btn" data-category="drinks">
+                    <i class="fas fa-glass-whiskey"></i> Drinks
+                </button>
+            </div>
+            
+            <div class="sort-options">
+                <select id="sort-select">
+                    <option value="popular">Most Popular</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="name">Name A-Z</option>
+                </select>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Items -->
+    <section class="menu-items">
+        <div class="container">
+            <div id="menu-container" class="menu-grid">
+                <!-- Menu items will be loaded dynamically -->
+                <div class="loading">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Loading delicious items...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar">
+        <div class="cart-header">
+            <h3>Your Order</h3>
+            <button class="close-cart">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Cart items will be loaded here -->
+            <div class="empty-cart">
+                <i class="fas fa-shopping-cart"></i>
+                <p>Your cart is empty</p>
+            </div>
+        </div>
+        <div class="cart-summary">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span class="total-amount">$0.00</span>
+            </div>
+            <div class="cart-actions">
+                <a href="cart.html" class="btn-secondary">View Cart</a>
+                <a href="checkout.html" class="btn-primary">Checkout</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <!-- Same as index.html footer -->
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Menu data (will be replaced with API call)
+        const menuItems = [
+            {
+                id: 1,
+                name: "Margherita Pizza",
+                description: "Classic pizza with tomato sauce, mozzarella, and fresh basil",
+                price: 12.99,
+                category: "pizza",
+                image: "images/food/pizza.jpg",
+                rating: 4.8,
+                deliveryTime: "25-30 min",
+                vegetarian: true
+            },
+            {
+                id: 2,
+                name: "Pepperoni Pizza",
+                description: "Loaded with spicy pepperoni and extra cheese",
+                price: 14.99,
+                category: "pizza",
+                image: "images/food/pizza.jpg",
+                rating: 4.7,
+                deliveryTime: "25-30 min",
+                vegetarian: false
+            },
+            {
+                id: 3,
+                name: "Classic Burger",
+                description: "Beef patty with lettuce, tomato, and special sauce",
+                price: 8.99,
+                category: "burger",
+                image: "images/food/burger.jpg",
+                rating: 4.5,
+                deliveryTime: "20-25 min",
+                vegetarian: false
+            },
+            {
+                id: 4,
+                name: "Chicken Burger",
+                description: "Grilled chicken breast with avocado and mayo",
+                price: 9.99,
+                category: "burger",
+                image: "images/food/burger.jpg",
+                rating: 4.6,
+                deliveryTime: "20-25 min",
+                vegetarian: false
+            },
+            {
+                id: 5,
+                name: "Spaghetti Carbonara",
+                description: "Creamy pasta with bacon and parmesan",
+                price: 11.99,
+                category: "pasta",
+                image: "images/food/pasta.jpg",
+                rating: 4.7,
+                deliveryTime: "15-20 min",
+                vegetarian: false
+            },
+            {
+                id: 6,
+                name: "California Roll",
+                description: "Crab stick, avocado, and cucumber roll",
+                price: 15.99,
+                category: "sushi",
+                image: "images/food/sushi.jpg",
+                rating: 4.9,
+                deliveryTime: "30-35 min",
+                vegetarian: false
+            },
+            {
+                id: 7,
+                name: "Fresh Salad",
+                description: "Mixed greens with cherry tomatoes and vinaigrette",
+                price: 7.99,
+                category: "salad",
+                image: "images/food/salad.jpg",
+                rating: 4.3,
+                deliveryTime: "10-15 min",
+                vegetarian: true
+            },
+            {
+                id: 8,
+                name: "Soft Drinks",
+                description: "Coke, Pepsi, Sprite, Fanta",
+                price: 2.99,
+                category: "drinks",
+                image: "images/food/drinks.jpg",
+                rating: 4.2,
+                deliveryTime: "10-15 min",
+                vegetarian: true
+            }
+        ];
+
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Load menu on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            displayMenu(menuItems);
+            updateCartCount();
+            
+            // Load user info if logged in
+            const user = JSON.parse(localStorage.getItem('user'));
+            if (user) {
+                document.getElementById('username-display').textContent = user.username;
+            }
+        });
+
+        // Filter functionality
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                const category = this.dataset.category;
+                const filteredItems = category === 'all' 
+                    ? menuItems 
+                    : menuItems.filter(item => item.category === category);
+                
+                displayMenu(filteredItems);
+            });
+        });
+
+        // Search functionality
+        document.getElementById('search-input').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const filteredItems = menuItems.filter(item => 
+                item.name.toLowerCase().includes(searchTerm) ||
+                item.description.toLowerCase().includes(searchTerm)
+            );
+            displayMenu(filteredItems);
+        });
+
+        // Sort functionality
+        document.getElementById('sort-select').addEventListener('change', function(e) {
+            let sortedItems = [...menuItems];
+            
+            switch(e.target.value) {
+                case 'price-low':
+                    sortedItems.sort((a, b) => a.price - b.price);
+                    break;
+                case 'price-high':
+                    sortedItems.sort((a, b) => b.price - a.price);
+                    break;
+                case 'name':
+                    sortedItems.sort((a, b) => a.name.localeCompare(b.name));
+                    break;
+                // Popular is default order
+            }
+            
+            displayMenu(sortedItems);
+        });
+
+        function displayMenu(items) {
+            const container = document.getElementById('menu-container');
+            
+            if (items.length === 0) {
+                container.innerHTML = `
+                    <div class="no-results">
+                        <i class="fas fa-search"></i>
+                        <h3>No items found</h3>
+                        <p>Try a different search or filter</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = items.map(item => `
+                <div class="menu-card" data-category="${item.category}">
+                    <div class="menu-card-image">
+                        <img src="${item.image}" alt="${item.name}">
+                        ${item.vegetarian ? '<span class="veg-badge"><i class="fas fa-leaf"></i> Veg</span>' : ''}
+                        <span class="rating-badge">
+                            <i class="fas fa-star"></i> ${item.rating}
+                        </span>
+                    </div>
+                    <div class="menu-card-content">
+                        <div class="menu-card-header">
+                            <h3>${item.name}</h3>
+                            <span class="price">$${item.price.toFixed(2)}</span>
+                        </div>
+                        <p class="description">${item.description}</p>
+                        <div class="menu-card-footer">
+                            <span class="delivery-time">
+                                <i class="fas fa-clock"></i> ${item.deliveryTime}
+                            </span>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn minus" onclick="updateQuantity(${item.id}, -1)">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <span class="quantity" id="quantity-${item.id}">0</span>
+                                <button class="quantity-btn plus" onclick="updateQuantity(${item.id}, 1)">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Update quantity displays
+            updateQuantityDisplays();
+        }
+
+        function updateQuantity(itemId, change) {
+            const item = menuItems.find(i => i.id === itemId);
+            const cartItem = cart.find(i => i.id === itemId);
+            
+            if (cartItem) {
+                cartItem.quantity += change;
+                if (cartItem.quantity <= 0) {
+                    cart = cart.filter(i => i.id !== itemId);
+                }
+            } else if (change > 0) {
+                cart.push({
+                    id: itemId,
+                    name: item.name,
+                    price: item.price,
+                    quantity: 1
+                });
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            updateQuantityDisplays();
+            
+            // Show notification
+            if (change > 0) {
+                showNotification(`${item.name} added to cart!`, 'success');
+            }
+        }
+
+        function updateQuantityDisplays() {
+            cart.forEach(item => {
+                const quantityElement = document.getElementById(`quantity-${item.id}`);
+                if (quantityElement) {
+                    quantityElement.textContent = item.quantity;
+                }
+            });
+        }
+
+        function updateCartCount() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cart-count').textContent = totalItems;
+        }
+
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check' : 'exclamation'}"></i>
+                <span>${message}</span>
+            `;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.add('hide');
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Cart sidebar toggle
+        document.querySelector('.cart-icon').addEventListener('click', function() {
+            document.querySelector('.cart-sidebar').classList.add('show');
+            updateCartSidebar();
+        });
+
+        document.querySelector('.close-cart').addEventListener('click', function() {
+            document.querySelector('.cart-sidebar').classList.remove('show');
+        });
+
+        function updateCartSidebar() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const totalAmountElement = document.querySelector('.total-amount');
+            
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="empty-cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        <p>Your cart is empty</p>
+                    </div>
+                `;
+                totalAmountElement.textContent = '$0.00';
+                return;
+            }
+            
+            let total = 0;
+            cartItemsContainer.innerHTML = cart.map(item => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                
+                return `
+                    <div class="cart-item-sidebar">
+                        <div class="cart-item-info">
+                            <h4>${item.name}</h4>
+                            <p>$${item.price.toFixed(2)} × ${item.quantity}</p>
+                        </div>
+                        <div class="cart-item-controls">
+                            <span>$${itemTotal.toFixed(2)}</span>
+                            <button onclick="removeFromCart(${item.id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            totalAmountElement.textContent = `$${total.toFixed(2)}`;
+        }
+
+        function removeFromCart(itemId) {
+            cart = cart.filter(item => item.id !== itemId);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            updateCartSidebar();
+            updateQuantityDisplays();
+            showNotification('Item removed from cart', 'info');
+        }
+    </script>
+</body>
+</html>

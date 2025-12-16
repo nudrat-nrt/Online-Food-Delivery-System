@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmed | FoodExpress</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-utensils"></i>
+                <span>FoodExpress</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Confirmation Section -->
+    <section class="confirmation-section">
+        <div class="container">
+            <div class="confirmation-card">
+                <div class="confirmation-header">
+                    <div class="confirmation-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h1>Order Confirmed!</h1>
+                    <p class="confirmation-subtitle">Thank you for your order</p>
+                </div>
+                
+                <div class="order-details">
+                    <div class="detail-card">
+                        <div class="detail-header">
+                            <i class="fas fa-receipt"></i>
+                            <h3>Order Details</h3>
+                        </div>
+                        <div class="detail-content">
+                            <div class="detail-row">
+                                <span>Order Number:</span>
+                                <strong id="order-number">ORD-12345678</strong>
+                            </div>
+                            <div class="detail-row">
+                                <span>Order Date:</span>
+                                <span id="order-date">Loading...</span>
+                            </div>
+                            <div class="detail-row">
+                                <span>Total Amount:</span>
+                                <strong id="order-total">Loading...</strong>
+                            </div>
+                            <div class="detail-row">
+                                <span>Payment Method:</span>
+                                <span id="payment-method">Loading...</span>
+                            </div>
+                            <div class="detail-row">
+                                <span>Order Status:</span>
+                                <span class="status-badge processing">Processing</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-card">
+                        <div class="detail-header">
+                            <i class="fas fa-truck"></i>
+                            <h3>Delivery Information</h3>
+                        </div>
+                        <div class="detail-content">
+                            <div class="detail-row">
+                                <span>Delivery Address:</span>
+                                <span id="delivery-address">Loading...</span>
+                            </div>
+                            <div class="detail-row">
+                                <span>Contact Number:</span>
+                                <span id="contact-phone">Loading...</span>
+                            </div>
+                            <div class="detail-row">
+                                <span>Estimated Delivery:</span>
+                                <strong id="delivery-time">25-30 minutes</strong>
+                            </div>
+                            <div class="detail-row">
+                                <span>Delivery Instructions:</span>
+                                <span id="delivery-instructions">None</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="order-items-summary">
+                    <h3><i class="fas fa-utensils"></i> Order Items</h3>
+                    <div id="order-items-list" class="order-items-list">
+                        <!-- Order items will be loaded here -->
+                    </div>
+                </div>
+                
+                <div class="tracking-timeline">
+                    <h3><i class="fas fa-map-marker-alt"></i> Order Tracking</h3>
+                    <div class="timeline">
+                        <div class="timeline-step active">
+                            <div class="timeline-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <h4>Order Placed</h4>
+                                <p>Order confirmed and received</p>
+                                <span class="timeline-time" id="order-placed-time">Just now</span>
+                            </div>
+                        </div>
+                        <div class="timeline-step">
+                            <div class="timeline-icon">
+                                <i class="fas fa-utensils"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <h4>Preparing</h4>
+                                <p>Chef is preparing your food</p>
+                                <span class="timeline-time">Estimated: 5 min</span>
+                            </div>
+                        </div>
+                        <div class="timeline-step">
+                            <div class="timeline-icon">
+                                <i class="fas fa-motorcycle"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <h4>On the Way</h4>
+                                <p>Delivery partner heading to you</p>
+                                <span class="timeline-time">Estimated: 20 min</span>
+                            </div>
+                        </div>
+                        <div class="timeline-step">
+                            <div class="timeline-icon">
+                                <i class="fas fa-home"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <h4>Delivered</h4>
+                                <p>Your order has been delivered</p>
+                                <span class="timeline-time">Estimated: 30 min</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="confirmation-actions">
+                    <button class="btn-secondary" id="track-order-btn">
+                        <i class="fas fa-map-marked-alt"></i> Track Order
+                    </button>
+                    <a href="menu.html" class="btn-primary">
+                        <i class="fas fa-utensils"></i> Order Again
+                    </a>
+                    <button class="btn-secondary" id="download-receipt-btn">
+                        <i class="fas fa-download"></i> Download Receipt
+                    </button>
+                </div>
+                
+                <div class="confirmation-footer">
+                    <p>Need help? <a href="contact.html">Contact Support</a> or call <strong>1-800-FOOD-EXP</strong></p>
+                    <p>You will receive an email confirmation shortly.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <!-- Same as index.html footer -->
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadOrderDetails();
+            
+            // Track order button
+            document.getElementById('track-order-btn').addEventListener('click', function() {
+                alert('Order tracking feature will be available soon!');
+            });
+            
+            // Download receipt button
+            document.getElementById('download-receipt-btn').addEventListener('click', function() {
+                const orderNumber = document.getElementById('order-number').textContent;
+                alert(`Downloading receipt for ${orderNumber}...`);
+            });
+        });
+
+        function loadOrderDetails() {
+            const lastOrder = JSON.parse(localStorage.getItem('lastOrder'));
+            const urlParams = new URLSearchParams(window.location.search);
+            const orderId = urlParams.get('order') || 'ORD-' + Date.now().toString().slice(-8);
+            
+            if (lastOrder) {
+                // Populate order details
+                document.getElementById('order-number').textContent = orderId;
+                document.getElementById('order-date').textContent = lastOrder.date || new Date().toLocaleString();
+                document.getElementById('order-total').textContent = lastOrder.total || '$0.00';
+                document.getElementById('payment-method').textContent = lastOrder.payment ? 
+                    lastOrder.payment.charAt(0).toUpperCase() + lastOrder.payment.slice(1) : 'Card';
+                
+                if (lastOrder.customer) {
+                    document.getElementById('delivery-address').textContent = 
+                        `${lastOrder.customer.address}, ${lastOrder.customer.city}`;
+                    document.getElementById('contact-phone').textContent = lastOrder.customer.phone;
+                    if (lastOrder.customer.instructions) {
+                        document.getElementById('delivery-instructions').textContent = lastOrder.customer.instructions;
+                    }
+                }
+                
+                // Populate order items
+                const orderItemsList = document.getElementById('order-items-list');
+                if (lastOrder.cart && lastOrder.cart.length > 0) {
+                    orderItemsList.innerHTML = lastOrder.cart.map(item => `
+                        <div class="order-item-detail">
+                            <div class="item-info">
+                                <h4>${item.name}</h4>
+                                <p>Quantity: ${item.quantity}</p>
+                            </div>
+                            <div class="item-price">
+                                $${(item.price * item.quantity).toFixed(2)}
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            } else {
+                // Demo data for testing
+                document.getElementById('order-number').textContent = orderId;
+                document.getElementById('order-date').textContent = new Date().toLocaleString();
+                document.getElementById('order-total').textContent = '$45.97';
+                document.getElementById('payment-method').textContent = 'Credit Card';
+                document.getElementById('delivery-address').textContent = '123 Main St, New York, NY 10001';
+                document.getElementById('contact-phone').textContent = '+1 234 567 8900';
+                
+                // Demo order items
+                document.getElementById('order-items-list').innerHTML = `
+                    <div class="order-item-detail">
+                        <div class="item-info">
+                            <h4>Margherita Pizza</h4>
+                            <p>Quantity: 1</p>
+                        </div>
+                        <div class="item-price">
+                            $12.99
+                        </div>
+                    </div>
+                    <div class="order-item-detail">
+                        <div class="item-info">
+                            <h4>Classic Burger</h4>
+                            <p>Quantity: 2</p>
+                        </div>
+                        <div class="item-price">
+                            $17.98
+                        </div>
+                    </div>
+                    <div class="order-item-detail">
+                        <div class="item-info">
+                            <h4>Coke</h4>
+                            <p>Quantity: 2</p>
+                        </div>
+                        <div class="item-price">
+                            $5.98
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // Update order placed time
+            const now = new Date();
+            document.getElementById('order-placed-time').textContent = 
+                `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+            
+            // Animate timeline
+            animateTimeline();
+        }
+
+        function animateTimeline() {
+            const steps = document.querySelectorAll('.timeline-step');
+            let delay = 0;
+            
+            steps.forEach((step, index) => {
+                setTimeout(() => {
+                    step.classList.add('active');
+                    
+                    // Add animation class to icon
+                    const icon = step.querySelector('.timeline-icon');
+                    icon.style.animation = 'pulse 1s ease-in-out';
+                    
+                    // Remove animation after it completes
+                    setTimeout(() => {
+                        icon.style.animation = '';
+                    }, 1000);
+                    
+                }, delay);
+                
+                delay += 2000; // 2 seconds between steps
+            });
+        }
+
+        // Share order functionality
+        function shareOrder() {
+            const orderNumber = document.getElementById('order-number').textContent;
+            if (navigator.share) {
+                navigator.share({
+                    title: 'My FoodExpress Order',
+                    text: `Check out my order #${orderNumber} from FoodExpress!`,
+                    url: window.location.href
+                });
+            } else {
+                // Fallback: Copy to clipboard
+                navigator.clipboard.writeText(`Order #${orderNumber} from FoodExpress: ${window.location.href}`);
+                alert('Order link copied to clipboard!');
+            }
+        }
+    </script>
+</body>
+</html>

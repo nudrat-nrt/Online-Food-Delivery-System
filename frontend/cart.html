@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart | FoodExpress</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-utensils"></i>
+                <span>FoodExpress</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                <a href="menu.html"><i class="fas fa-pizza-slice"></i> Menu</a>
+                <a href="cart.html" class="active cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count" class="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Cart Section -->
+    <section class="cart-section">
+        <div class="container">
+            <div class="cart-header">
+                <h1>Your Shopping Cart</h1>
+                <a href="menu.html" class="continue-shopping">
+                    <i class="fas fa-arrow-left"></i> Continue Shopping
+                </a>
+            </div>
+            
+            <div class="cart-content">
+                <!-- Cart Items -->
+                <div class="cart-items-container">
+                    <div class="cart-items-header">
+                        <span>Item</span>
+                        <span>Price</span>
+                        <span>Quantity</span>
+                        <span>Total</span>
+                        <span>Action</span>
+                    </div>
+                    
+                    <div id="cart-items-list" class="cart-items-list">
+                        <!-- Cart items will be loaded here -->
+                        <div class="empty-cart-message">
+                            <i class="fas fa-shopping-cart"></i>
+                            <h3>Your cart is empty</h3>
+                            <p>Add some delicious items from our menu!</p>
+                            <a href="menu.html" class="btn-primary">
+                                <i class="fas fa-utensils"></i> Browse Menu
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Order Summary -->
+                <div class="order-summary">
+                    <h3>Order Summary</h3>
+                    
+                    <div class="summary-item">
+                        <span>Subtotal</span>
+                        <span id="subtotal">$0.00</span>
+                    </div>
+                    
+                    <div class="summary-item">
+                        <span>Delivery Fee</span>
+                        <span id="delivery-fee">$2.99</span>
+                    </div>
+                    
+                    <div class="summary-item">
+                        <span>Tax (10%)</span>
+                        <span id="tax">$0.00</span>
+                    </div>
+                    
+                    <div class="summary-item total">
+                        <span>Total</span>
+                        <span id="total">$0.00</span>
+                    </div>
+                    
+                    <div class="discount-code">
+                        <input type="text" placeholder="Discount code" id="discount-input">
+                        <button class="btn-secondary" id="apply-discount">Apply</button>
+                    </div>
+                    
+                    <button class="btn-primary btn-checkout" id="checkout-btn">
+                        <i class="fas fa-lock"></i> Proceed to Checkout
+                    </button>
+                    
+                    <div class="payment-methods">
+                        <p><i class="fas fa-shield-alt"></i> Secure Payment</p>
+                        <div class="payment-icons">
+                            <i class="fab fa-cc-visa"></i>
+                            <i class="fab fa-cc-mastercard"></i>
+                            <i class="fab fa-cc-paypal"></i>
+                            <i class="fab fa-cc-apple-pay"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <!-- Same as index.html footer -->
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const deliveryFee = 2.99;
+        const taxRate = 0.10;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartDisplay();
+            updateCartCount();
+        });
+
+        function updateCartDisplay() {
+            const cartItemsList = document.getElementById('cart-items-list');
+            const subtotalElement = document.getElementById('subtotal');
+            const taxElement = document.getElementById('tax');
+            const totalElement = document.getElementById('total');
+            
+            if (cart.length === 0) {
+                cartItemsList.innerHTML = `
+                    <div class="empty-cart-message">
+                        <i class="fas fa-shopping-cart"></i>
+                        <h3>Your cart is empty</h3>
+                        <p>Add some delicious items from our menu!</p>
+                        <a href="menu.html" class="btn-primary">
+                            <i class="fas fa-utensils"></i> Browse Menu
+                        </a>
+                    </div>
+                `;
+                
+                subtotalElement.textContent = '$0.00';
+                taxElement.textContent = '$0.00';
+                totalElement.textContent = '$0.00';
+                document.getElementById('checkout-btn').disabled = true;
+                return;
+            }
+            
+            let subtotal = 0;
+            
+            cartItemsList.innerHTML = cart.map(item => {
+                const itemTotal = item.price * item.quantity;
+                subtotal += itemTotal;
+                
+                return `
+                    <div class="cart-item-row" data-id="${item.id}">
+                        <div class="cart-item-product">
+                            <div class="product-image">
+                                <img src="images/food/${item.category || 'pizza'}.jpg" alt="${item.name}">
+                            </div>
+                            <div class="product-info">
+                                <h4>${item.name}</h4>
+                                <p>Freshly prepared</p>
+                            </div>
+                        </div>
+                        
+                        <div class="cart-item-price">
+                            $${item.price.toFixed(2)}
+                        </div>
+                        
+                        <div class="cart-item-quantity">
+                            <button class="quantity-btn minus" onclick="updateCartQuantity(${item.id}, -1)">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <span class="quantity">${item.quantity}</span>
+                            <button class="quantity-btn plus" onclick="updateCartQuantity(${item.id}, 1)">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="cart-item-total">
+                            $${itemTotal.toFixed(2)}
+                        </div>
+                        
+                        <div class="cart-item-action">
+                            <button class="remove-btn" onclick="removeFromCart(${item.id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            const tax = subtotal * taxRate;
+            const total = subtotal + deliveryFee + tax;
+            
+            subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
+            taxElement.textContent = `$${tax.toFixed(2)}`;
+            totalElement.textContent = `$${total.toFixed(2)}`;
+            document.getElementById('checkout-btn').disabled = false;
+        }
+
+        function updateCartQuantity(itemId, change) {
+            const cartItem = cart.find(item => item.id === itemId);
+            
+            if (cartItem) {
+                cartItem.quantity += change;
+                
+                if (cartItem.quantity <= 0) {
+                    cart = cart.filter(item => item.id !== itemId);
+                    showNotification('Item removed from cart', 'info');
+                }
+                
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartDisplay();
+                updateCartCount();
+            }
+        }
+
+        function removeFromCart(itemId) {
+            cart = cart.filter(item => item.id !== itemId);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartDisplay();
+            updateCartCount();
+            showNotification('Item removed from cart', 'info');
+        }
+
+        function updateCartCount() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cart-count').textContent = totalItems;
+        }
+
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check' : 'exclamation'}"></i>
+                <span>${message}</span>
+            `;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.add('hide');
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Apply discount code
+        document.getElementById('apply-discount').addEventListener('click', function() {
+            const code = document.getElementById('discount-input').value.trim().toUpperCase();
+            const discountCodes = {
+                'WELCOME10': 0.10,
+                'FOODIE20': 0.20,
+                'EXPRESS15': 0.15
+            };
+            
+            if (discountCodes[code]) {
+                showNotification(`Discount applied: ${discountCodes[code] * 100}% off!`, 'success');
+            } else if (code) {
+                showNotification('Invalid discount code', 'error');
+            }
+        });
+
+        // Proceed to checkout
+        document.getElementById('checkout-btn').addEventListener('click', function() {
+            if (cart.length > 0) {
+                // Check if user is logged in
+                const user = JSON.parse(localStorage.getItem('user'));
+                if (user) {
+                    window.location.href = 'checkout.html';
+                } else {
+                    if (confirm('You need to login to proceed. Login now?')) {
+                        window.location.href = 'login.html?redirect=checkout.html';
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
